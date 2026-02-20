@@ -24,6 +24,9 @@ A few things to keep in mind when filing an issue:
 * Before filing, verify that there isn't an open issue already filed.
   * Search [JBS](https://bugs.openjdk.org/) for things like the name of the failing test, assert messages, the name of the source code file where a crash occurred etc.
   * If you find a similar issue that was closed as [Cannot Reproduce]{.jbs-value} then it may be appropriate to re-open that one - if you don't have direct access to JBS you can file a bug using the [Bug Report Tool](https://bugreport.java.com/) requesting that it be reopened.
+* Set a relevant [Component/s]{.jbs-field} for the issue.
+  * If you are unsure what component to choose, see [Code Owners](#code-owners) for guidance.
+  * Please note that issues in the [hotspot]{.jbs-value} and [security-libs]{.jbs-value} components must have a [Subcomponent]{.jbs-field} set as well.
 * Make a reasonable attempt to narrow down which build or release the failure first appeared in.
 * Set [Affects Version/s]{.jbs-field} to the earliest JDK version where the failure was seen.
   * If the failure is found in an update train of the JDK (e.g. 11.0.x), please see (if possible) if it's also present in [mainline](https://github.com/openjdk/jdk).
@@ -280,13 +283,17 @@ There are the following link types:
 
 Once the work on an issue has been completed the issue's [Status]{.jbs-field} should be in a "completed" state. There are two "completed" states: [Resolved]{.jbs-value} and [Closed]{.jbs-value}. These are accompanied by a [Resolution]{.jbs-field} and a [Fix Version/s]{.jbs-value}. Which combination of [Status]{.jbs-field}, [Resolution]{.jbs-field}, and [Fix Version/s]{.jbs-value} you should use depends on how the issue is completed.
 
-Most resolutions are used to close an issue so that it ends up being [Closed]{.jbs-value} directly, but resolutions that indicates that a change has been integrated into a Project repository must go through the [Resolved]{.jbs-value} state. An issue in [Resolved]{.jbs-value} state needs to go through [verification](#verifying-an-issue) to end up as [Closed]{.jbs-value}. For the JDK Project in almost all cases the bots will transition the issue to [Resolved]{.jbs-value}/[Fixed]{.jbs-value} when the changeset is integrated to the repository.
+When a change is integrated into a project repository, the corresponding JBS issue should be [Resolved]{.jbs-value} with the resolution [Fixed]{.jbs-value}. For the JDK Project, in almost all cases the bots will transition the issue to [Resolved]{.jbs-value}/[Fixed]{.jbs-value} automatically when the changeset is integrated. There are a few more cases where you want to indicate that a change has been integrated into a project repository that must also go through the [Resolved]{.jbs-value} state. In other cases, where you close an issue manually, it should go directly to [Closed]{.jbs-value} with the appropriate resolution. See the [table below](#close-resolve-table) for more details.
+
+An issue in the [Resolved]{.jbs-value} state needs to go through [verification](#verifying-an-issue) to end up as [Closed]{.jbs-value}. If you move an issue to [Resolved]{.jbs-value} when it should be [Closed]{.jbs-value}, use the "Verify" option in the state transition menu and select verification [None]{.jbs-value}.
 
 The [Fix Version/s]{.jbs-field} field should indicate when an issue was fixed. The most common value for this field is a JDK version number. There are some special values available for this field in JBS, these should only be used for special cases as outlined in this Guide.
 
 ::: {.note}
 **Note:** An issue should never be closed if it has open sub-tasks.
 :::
+
+[]{#close-resolve-table}
 
 | Status<br />Resolution | Covers |
 |:-|:-----------|
